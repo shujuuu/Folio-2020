@@ -25,6 +25,8 @@ const expressLayouts = require('express-ejs-layouts');
 //2B: set up route to let pages know where to go
 //require takes relative path
 const indexRouter = require('./routes/index');
+const worksRouter = require('./routes/works');
+const aboutRouter = require('./routes/about');
 
 //1B: Setting up Express, set view engine, in this case, use ejs
 app.set('view engine', 'ejs')
@@ -34,7 +36,7 @@ app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
 
 //hook up express layouts, what are layout is gonna be, common html
-app.set('layout', 'layouts/partials')
+app.set('layout', 'layouts/layout')
 
 //tell to use express layout
 app.use(expressLayouts)
@@ -74,7 +76,10 @@ db.once('open', () => console.log('Connected to Mongoose'));
 //2B: set up route to let pages know where to go
 //for larger website, put routes in another file
 //controller = routes
+//2parameter, 1st = prepend with this, 2nd = every route inside
 app.use('/', indexRouter)
+app.use('/works', worksRouter)
+app.use('/about', aboutRouter)
 
 //1C: Setting up Express, tell app to listen to certain ports
 //process.env.PORT = pull from environment variable from when we deploy
